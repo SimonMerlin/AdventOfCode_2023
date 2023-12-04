@@ -28,11 +28,7 @@ def main():
     res = 0
     for line in lines:
         matchs = re.findall(regex, line)
-        if len(matchs)==1:
-            value = int(mapToNumber(matchs[0])+mapToNumber(matchs[0]))
-        else:
-            value = int(mapToNumber(matchs[0])+mapToNumber(matchs[len(matchs)-1]))
-        res += value
+        res += int(mapToNumber(matchs[0])+mapToNumber(matchs[len(matchs)-1]))
     return res
 
 start = time.perf_counter()

@@ -12,9 +12,9 @@ def parseGame(game):
     rounds = [r.strip() for r in game.split(';')]
     for r in rounds:
         for dices in r.split(','):
-            d = dices.strip().split(' ')
-            if(d[1] not in gameDict.keys()) or gameDict[d[1]] < int(d[0]):
-                gameDict[d[1]] = int(d[0])
+            count, color = dices.strip().split(' ')
+            if(color not in gameDict.keys()) or gameDict[color] < int(count):
+                gameDict[color] = int(count)
     return gameDict
 
 def isPossible(game):

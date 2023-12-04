@@ -2,8 +2,6 @@ import os
 import shutil
 
 SOURCE_DIRECTORY = './../template'
-SOURCE_FILE = 'decX_part1.py'
-
 
 def copyTree(dest):
     if os.path.exists(os.path.join('..',dest)):
@@ -12,7 +10,7 @@ def copyTree(dest):
     print("Folder created in {}".format(os.path.join('..',dest)))
 
 def renameFiles(day):
-    for root, dirs, files in os.walk(os.path.join('..',day)):
+    for root, dirs, files in os.walk(os.path.join('..', day)):
         for name in files:
             if ".py" in name:
                 newName = 'dec{}_{}.py'.format(day, root.split('\\')[-1])
