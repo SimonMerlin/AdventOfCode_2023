@@ -1,7 +1,8 @@
 import sys
 import os
 import re
-f = open(os.path.join(sys.path[0], './../data.txt'), 'r')
+import time
+f = open(os.path.join(sys.path[0], './../input.txt'), 'r')
 lines = [l.rstrip() for l in f.readlines()]
 
 regex = r"(?=(one|two|three|four|five|six|seven|eight|nine|[1-9]))"
@@ -23,15 +24,21 @@ def mapToNumber(number):
         return str(number)
     return numberAsString[number]
 
-res = 0
-for line in lines:
-    matchs = re.findall(regex, line)
-    if len(matchs)==1:
-        value = int(mapToNumber(matchs[0])+mapToNumber(matchs[0]))
-    else:
-        value = int(mapToNumber(matchs[0])+mapToNumber(matchs[len(matchs)-1]))
-    res += value
-print(res)
+def main():
+    res = 0
+    for line in lines:
+        matchs = re.findall(regex, line)
+        if len(matchs)==1:
+            value = int(mapToNumber(matchs[0])+mapToNumber(matchs[0]))
+        else:
+            value = int(mapToNumber(matchs[0])+mapToNumber(matchs[len(matchs)-1]))
+        res += value
+    return res
+
+start = time.perf_counter()
+print(main())
+end = time.perf_counter()
+print(f"Executed in {((end - start)*1000):0.2f} milliseconds")
     
 
     

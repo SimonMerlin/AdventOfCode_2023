@@ -1,6 +1,7 @@
 import sys
 import os
-f = open(os.path.join(sys.path[0], './../data.txt'), 'r')
+import time
+f = open(os.path.join(sys.path[0], './../input.txt'), 'r')
 lines = [l.rstrip() for l in f.readlines()]
 
 xMax, yMax = len(lines[0]), len(lines)
@@ -42,8 +43,10 @@ def main():
                         csUsed += cUsed
                         numbers.append(n)
                 if len(numbers) == 2:
-                    print(int(numbers[0]), int(numbers[1]))
                     counter += int(numbers[0]) * int(numbers[1])
     return counter
 
+start = time.perf_counter()
 print(main())
+end = time.perf_counter()
+print(f"Executed in {((end - start)*1000):0.2f} milliseconds")

@@ -3,13 +3,13 @@
 <h2>Not an offical repository from Advent Of Code</h2>
 </br>
 
-This repository contains all the answers to [https://adventofcode.com](https://adventofcode.com) day by day on each puzzle (from day 1 to day 20 included) for 2022.
+This repository contains all the answers to [https://adventofcode.com](https://adventofcode.com) day by day on each puzzle for 2023.
 
 <b>I am not affiliated in any with the creators of `Advent Of Code` and this is not the officials answers of these puzzles. </b>I have do it on my own and want to share my solutions with those who have not found them.
 
 There is lot of ways to find the solution of a puzzle. These are probably not the best solutions programmatically speaking but it gives the good answer each time. An effort have been done on puzzle that required good performance to avoid exponential calculations.
 
-The repository is sorted by day, in each day there is two parts of the puzzle and for each part, it's data (`data.txt`) and the solution (`decX_partX.py`).
+The repository is sorted by day, in each day there is two parts of the puzzle and for each part, it's data (`input.txt`) and the solution (`decX_partX.py`).
 
 # Run and interpret a solution
 
@@ -22,18 +22,21 @@ $ python3 ./1/part1/dec1_part1.py
 ```
 
 ## To interpret the solution
-After execution, the programm will print the answer on the standard output :
+After execution, the programm will print the answer on the standard output and time execution in milliseconds :
 
 ```console
 $ python3 ./1/part1/dec1_part1.py
 1527
+Executed in 3.50 milliseconds
 ```
 
 The answer to write on [https://adventofcode.com](https://adventofcode.com) for day one part one is : 1527
 
 # Template
 
-The repository provide a template to copy/paste on every new day with a puzzle. It contains the folder for the the two part and the python files for each puzzles ready to read the data in `data.txt`.
+The repository provide a template to copy/paste on every new day with a puzzle. It contains the folder for the the two part and the python files for each puzzles ready to read the data in `input.txt` and a README file.
+
+The folder for a single day can be auto-generated with `generate.py` in folder `script`. After typing the number of the day, the folder will be generated, ready to use.
 
 # Language
 

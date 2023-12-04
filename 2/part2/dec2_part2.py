@@ -1,8 +1,9 @@
 import sys
 import os
 import operator
+import time
 from functools import reduce
-f = open(os.path.join(sys.path[0], './../data.txt'), 'r')
+f = open(os.path.join(sys.path[0], './../input.txt'), 'r')
 lines = [l.rstrip() for l in f.readlines()]
 
 def parseGame(game):
@@ -19,9 +20,14 @@ def parseGame(game):
 def multiplyDice(game):
     return reduce(operator.mul, [game[c] for c in game.keys()], 1)
 
-gamesPower = []
-for game in lines:
-    gameId = int(game.split(':')[0].split(" ")[1])
-    gameParsed = parseGame(game)
-    gamesPower.append(multiplyDice(gameParsed))
-print(sum(gamesPower))
+def main():
+    gamesPower = []
+    for game in lines:
+        gameParsed = parseGame(game)
+        gamesPower.append(multiplyDice(gameParsed))
+    return sum(gamesPower)
+
+start = time.perf_counter()
+print(main())
+end = time.perf_counter()
+print(f"Executed in {((end - start)*1000):0.2f} milliseconds")
