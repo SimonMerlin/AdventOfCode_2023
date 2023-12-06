@@ -6,6 +6,7 @@ lines = [l.rstrip() for l in f.readlines()]
 
 seeds = []
 typeMap, valuesMap = dict(), dict()
+seedsIntersect = []
 
 class Mapping:
     def __init__(self, destRangeStart, srcRangeStart, rangeLength):
@@ -17,6 +18,23 @@ class Mapping:
         if value >= self.srcRangeStart and value < self.srcRangeStart+self.rangeLength:
             return self.destRangeStart + (value-self.srcRangeStart)
         return None
+
+def getLocationRange():
+    locationInterset = []
+    mapping = valuesMap['location']
+    for m in mapping:
+        minl, maxl = m.srcRangeStart, m.srcRangeStart+m.rangeLength
+        inserted = False
+        for li in locationInterset:
+            if minl>= li[0] and minl<= li[0]:
+                newMax = max(li[1], maxl)
+                li[1] = newMax
+        if not inserted:
+            locationInterset.append([minl, maxl])
+
+    locationInterset.sort(key=lambda a: a[0])
+    print(locationInterset)
+    return locationInterset
 
 def getSeedsRange():
     seedsIntersect = []
@@ -31,9 +49,13 @@ def getSeedsRange():
         if not inserted:
             seedsIntersect.append([minS, maxS])
         i+=2
-    print(seedsIntersect)
     return seedsIntersect
 
+def hasSeed(seed):
+    for s in seedsIntersect:
+        if s[0]<=seed and s[1]>seed:
+            return True
+    return False
 
 def fillMapValuesForType(type, destRangeStart, srcRangeStart, rangeLength):
     mappingList = []
@@ -51,53 +73,46 @@ def parseInput():
     while i < len(lines):
         # type mapping
         srcType, destType = lines[i].split(' ')[0].split('-to-')
-        typeMap[srcType] = destType
+        typeMap[destType] = srcType
         
         # source and destination mapping
         i+=1
         while i < len(lines) and lines[i] != '':
             destRangeStart, srcRangeStart, rangeLength = [int(r.strip()) for r in lines[i].split(' ')]
-            fillMapValuesForType(srcType, destRangeStart, srcRangeStart, rangeLength)
+            fillMapValuesForType(destType, srcRangeStart, destRangeStart, rangeLength)
             i+=1
         i+=1
 
-def findMinLOcationForSeedRange(seedMin, seedMax):
-    minLocation = None
-    for s in range(seedMin, seedMax):
-        print(s-seedMin, '/', seedMax-seedMin)
-        srcType, srcValue = 'seed', s
+def findSeedForLocation(location):
+    srcType, srcValue = 'location', location
 
-        while srcType in typeMap.keys():
-            destType = typeMap[srcType]
-            destValue = None
-            for m in valuesMap[srcType]:
-                if destValue == None:
-                    destValue = m.getMapping(srcValue)
+    while srcType in typeMap.keys():
+        destType = typeMap[srcType]
+        destValue = None
+        for m in valuesMap[srcType]:
             if destValue == None:
-                destValue = srcValue
-            
-            srcType, srcValue = destType, destValue
-
-        if minLocation == None or minLocation>srcValue:
-            minLocation = srcValue
-    return minLocation
+                destValue = m.getMapping(srcValue)
+        if destValue == None:
+            destValue = srcValue
+        
+        srcType, srcValue = destType, destValue
+    return srcValue
 
 
 def main():
-    minLocation = None
+    global seedsIntersect
     parseInput()
-    print("INPUT PARSED")
 
     seedsIntersect = getSeedsRange()
-    print("SEEDS RANGE COMPUTED")
-    print(len(seedsIntersect))
 
-    for si in seedsIntersect:
-        minForRange = findMinLOcationForSeedRange(si[0], si[1])
-        if minLocation == None or minLocation>minForRange:
-            minLocation = minForRange
+    max = 1000000000
+    for a in range(0,max):
+        seedValue = findSeedForLocation(a)
+        if a%10000000 == 0:
+            print(a, ' / ', max)
+        if hasSeed(seedValue):
+            return a
         
-    return minLocation
     
 
 start = time.perf_counter()

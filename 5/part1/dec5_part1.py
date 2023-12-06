@@ -49,7 +49,6 @@ def parseInput():
 def main():
     minLocation = None
     parseInput()
-    i = 0
     for s in seeds:
         srcType, srcValue = 'seed', s
 
