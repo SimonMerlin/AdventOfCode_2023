@@ -33,7 +33,6 @@ def getLocationRange():
             locationInterset.append([minl, maxl])
 
     locationInterset.sort(key=lambda a: a[0])
-    print(locationInterset)
     return locationInterset
 
 def getSeedsRange():
