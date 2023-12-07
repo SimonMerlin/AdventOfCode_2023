@@ -1,16 +1,13 @@
 import sys
 import os
 import time
+import re
+
 f = open(os.path.join(sys.path[0], './../input.txt'), 'r')
 lines = [l.rstrip() for l in f.readlines()]
 
 def main():
-    res = 0
-    for line in lines:
-        numbers = [i for i in line if i.isdigit()]
-        res += int(numbers[0]+numbers[len(numbers)-1])
-    return res
-
+    return sum([int(n[0]+n[len(n)-1]) for n in [re.findall(r"[1-9]", line) for line in lines]])
 
 start = time.perf_counter()
 print(main())

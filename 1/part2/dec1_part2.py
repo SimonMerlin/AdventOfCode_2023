@@ -17,19 +17,19 @@ numberAsString = {
     "seven":"7",
     "eight":"8",
     "nine":"9",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9"
     }
 
-def mapToNumber(number):
-    if number.isdigit():
-        return str(number)
-    return numberAsString[number]
-
 def main():
-    res = 0
-    for line in lines:
-        matchs = re.findall(regex, line)
-        res += int(mapToNumber(matchs[0])+mapToNumber(matchs[len(matchs)-1]))
-    return res
+    return sum([int(numberAsString[m[0]]+numberAsString[m[len(m)-1]]) for m in [re.findall(regex, line) for line in lines]])
 
 start = time.perf_counter()
 print(main())
