@@ -4,7 +4,8 @@ import time
 f = open(os.path.join(sys.path[0], './../input.txt'), 'r')
 lines = [l.rstrip() for l in f.readlines()]
 
-
+def parseInput():
+    return None
 
 
 def main():
