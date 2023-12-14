@@ -1,7 +1,7 @@
-import sys
 import os
 import time
-f = open(os.path.join(sys.path[0], './../input.txt'), 'r')
+
+f = open(os.path.dirname(__file__) + '/../input.txt', 'r')
 universe = [l.rstrip() for l in f.readlines()]
 
 EXPANSION_RATIO = 1000000
@@ -35,7 +35,8 @@ def main():
     galaxies = getGalaxies(universe)
     return getDistancesBetweenGalaxies(galaxies, emptyRows, emptyColumns)
 
-start = time.perf_counter()
-print(main())
-end = time.perf_counter()
-print(f"Executed in {((end - start)*1000):0.2f} milliseconds")
+if __name__ == '__main__': 
+    start = time.perf_counter()
+    print(main())
+    end = time.perf_counter()
+    print(f"Executed in {((end - start)*1000):0.2f} milliseconds")
